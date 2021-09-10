@@ -1,0 +1,29 @@
+[package]
+name = "unix-ts"
+version = "0.1.0"
+edition = "2018"
+authors = [
+  "Luke Sneeringer <luke@sneeringer.com>"
+]
+keywords = ["date", "time", "unix timestamp", "timestamp"]
+categories = ["date-and-time"]
+description = "Unix timestamp manipulation and conversion."
+homepage = "https://github.com/lukesneeringer/unix-ts"
+repository = "https://github.com/lukesneeringer/unix-ts"
+documentation = "https://docs.rs/unix-ts/"
+readme = "README.md"
+license = "MIT"
+exclude = [
+  "/.github/*",
+  "/rustfmt.toml",
+  "/.prettierrc.yaml",
+]
+
+[dependencies]
+chrono = { version = "*", optional = true }
+
+[dev-dependencies]
+chrono-tz = "*"
+
+[workspace]
+members = [".", "./macros", "./macros-test"]
