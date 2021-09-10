@@ -2,7 +2,7 @@
 name = "unix-ts-macros"
 version = "0.1.0"
 edition = "2018"
-keywords = ["date", "time", "unix timestamp", "timestamp"]
+keywords = ["date", "time", "unix-timestamp", "timestamp"]
 categories = ["date-and-time"]
 description = "Macro to quickly create unix-ts timestamps."
 homepage = "https://github.com/lukesneeringer/unix-ts"
