@@ -26,4 +26,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: apk add alpine-sdk
-      - run: cargo doc --test
+      - run: cargo doc
