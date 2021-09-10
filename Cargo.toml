@@ -26,4 +26,4 @@ chrono = { version = "*", optional = true }
 chrono-tz = "*"
 
 [workspace]
-members = [".", "./macros", "./macros-test"]
+members = [".", "macros", "macros-test"]
