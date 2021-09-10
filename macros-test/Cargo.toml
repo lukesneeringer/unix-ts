@@ -1,3 +1,11 @@
+[package]
+name = "unix-ts-macros-test"
+version = "0.1.0"
+edition = "2018"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
 [dependencies]
 unix-ts = { path = ".." }
 unix-ts-macros = { path = "../macros" }
