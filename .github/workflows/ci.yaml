@@ -1,0 +1,29 @@
+---
+name: ci
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    container: rust:1.54-alpine
+    steps:
+      - uses: actions/checkout@v2
+      - run: apk add alpine-sdk
+      - run: cargo test
+  lint:
+    runs-on: ubuntu-latest
+    container: rust:1.54-alpine
+    steps:
+      - uses: actions/checkout@v2
+      - run: rustup toolchain install nightly
+      - run: rustup component add rustfmt --toolchain nightly
+      - run: cargo +nightly fmt -- --check
+  docs:
+    runs-on: ubuntu-latest
+    container: rust:1.54-alpine
+    steps:
+      - uses: actions/checkout@v2
+      - run: apk add alpine-sdk
+      - run: cargo doc
