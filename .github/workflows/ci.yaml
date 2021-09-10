@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: apk add alpine-sdk
-      - run: cargo test --all-features
+      - run: cargo test --all-features --workspace
   lint:
     runs-on: ubuntu-latest
     container: rust:1.54-alpine
