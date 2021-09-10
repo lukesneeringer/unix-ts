@@ -1,0 +1,15 @@
+brace_style = "PreferSameLine"
+comment_width = 79
+control_brace_style = "ClosingNextLine"
+format_code_in_doc_comments = true
+format_strings = true
+fn_args_layout = "Compressed"
+max_width = 79
+newline_style = "Unix"
+remove_nested_parens = true
+reorder_imports = true
+tab_spaces = 2
+trailing_semicolon = true
+use_small_heuristics = "Max"
+version = "Two"
+wrap_comments = true
