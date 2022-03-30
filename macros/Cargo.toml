@@ -19,5 +19,5 @@ exclude = [
 [lib]
 proc-macro = true
 
-[dependencies]
-unix-ts = { path = "..", version = "0.1.0" }
+[dev-dependencies]
+unix-ts = { path = ".." }
