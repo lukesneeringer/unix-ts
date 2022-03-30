@@ -1,7 +1,7 @@
 [package]
 name = "unix-ts"
 version = "0.2.0"
-edition = "2018"
+edition = "2021"
 authors = [
   "Luke Sneeringer <luke@sneeringer.com>"
 ]
@@ -25,6 +25,9 @@ unix-ts-macros = { path = "macros" }
 
 [dev-dependencies]
 chrono-tz = "0.5"
+
+[build-dependencies]
+readme-rustdocifier = "0.1"
 
 [workspace]
 members = [".", "macros", "macros-test"]
