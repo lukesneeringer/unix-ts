@@ -78,3 +78,4 @@ mod timestamp;
 mod chrono;
 
 pub use timestamp::Timestamp;
+pub use unix_ts_macros::ts;

@@ -1,6 +1,6 @@
 [package]
 name = "unix-ts"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2018"
 authors = [
   "Luke Sneeringer <luke@sneeringer.com>"
@@ -21,6 +21,7 @@ exclude = [
 
 [dependencies]
 chrono = { version = "0.4", optional = true }
+macros = { path = "macros" }
 
 [dev-dependencies]
 chrono-tz = "0.5"

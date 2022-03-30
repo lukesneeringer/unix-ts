@@ -4,7 +4,7 @@ use std::ops::Sub;
 /// A representation of a timestamp (seconds and nanos since the Unix epoch).
 ///
 /// Timestamps are able to be easily converted into chrono DateTimes.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Timestamp {
   /// The number of seconds since the Unix epoch.
   pub(crate) seconds: i64,
