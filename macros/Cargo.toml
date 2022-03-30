@@ -21,3 +21,6 @@ proc-macro = true
 
 [dev-dependencies]
 unix-ts = { path = ".." }
+
+[build-dependencies]
+readme-rustdocifier = "0.1"

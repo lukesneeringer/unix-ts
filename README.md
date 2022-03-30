@@ -9,19 +9,18 @@ whatever other formats are needed.
 
 ## Usage
 
-Add these creates to your `Cargo.toml` file like usual:
+Add the crate to your `Cargo.toml` file like usual:
 
 ```toml
 [dependencies]
-unix-ts = "0.1"
-unix-ts-macros = "0.1"
+unix-ts = "0.2"
 ```
 
 You can create a timestamp with the `ts!` macro, which takes the Unix timestamp
 as an argument:
 
 ```rs
-use unix_ts_macros::ts;
+use unix_ts::ts;
 
 // The argument is the number of seconds since the Unix epoch.
 let t = ts!(1335020400);

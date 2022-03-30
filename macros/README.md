@@ -1,16 +1,16 @@
 # unix-ts-macros: A macro to quickly generate unix-ts timestamps.
 
 unix-ts-macros simplifies the creation of timestamps into a procedural macro:
-`ts`.
+`ts`. This is an implementation crate for `unix-ts`, which is what you should
+actually add as a dependency.
 
 ## Usage
 
-Add the create as well as unix-ts to your `Cargo.toml` file like usual:
+Add the `unix-ts` crate to your `Cargo.toml` file like usual:
 
 ```toml
 [dependencies]
-unix-ts = "0.1"
-unix-ts-macros = "0.1"
+unix-ts = "0.2"
 ```
 
 You can create a timestamp with the `ts!` macro, which takes the Unix timestamp

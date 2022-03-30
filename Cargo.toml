@@ -26,5 +26,8 @@ unix-ts-macros = { path = "macros" }
 [dev-dependencies]
 chrono-tz = "0.5"
 
+[build-dependencies]
+readme-rustdocifier = "0.1"
+
 [workspace]
 members = [".", "macros", "macros-test"]
