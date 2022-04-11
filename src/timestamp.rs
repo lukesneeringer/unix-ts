@@ -31,6 +31,31 @@ impl Timestamp {
     Timestamp { seconds: seconds, nanos: nanos }
   }
 
+  /// Create a timestamp from the given number of nanoseconds.
+  pub fn from_nanos(nanos: impl Into<i128>) -> Timestamp {
+    let nanos = nanos.into();
+    let seconds: i64 = (nanos / 1_000_000_000)
+      .try_into()
+      .expect("Timestamp value out of range.");
+    let nanos = if seconds >= 0 {
+      (nanos % 1_000_000_000) as u32
+    }
+    else {
+      (1_000_000_000 - (nanos % 1_000_000_000).abs()) as u32
+    };
+    Timestamp { seconds: seconds, nanos: nanos }
+  }
+
+  /// Create a timestamp from the given number of microseconds.
+  pub fn from_micros(micros: impl Into<i128>) -> Timestamp {
+    Timestamp::from_nanos(micros.into() * 1_000)
+  }
+
+  /// Create a timestamp from the given number of milliseconds.
+  pub fn from_millis(millis: impl Into<i128>) -> Timestamp {
+    Timestamp::from_nanos(millis.into() * 1_000_000)
+  }
+
   /// Return the seconds since the Unix epoch.
   /// Sub-second values are discarded.
   ///
@@ -119,16 +144,60 @@ impl Sub for Timestamp {
 #[cfg(test)]
 mod tests {
   use super::*;
+  use assert2::check;
 
   #[test]
   fn test_cmp() {
-    assert!(Timestamp::from(1335020400) < Timestamp::from(1335024000));
-    assert!(Timestamp::from(1335020400) == Timestamp::from(1335020400));
-    assert!(
+    check!(Timestamp::from(1335020400) < Timestamp::from(1335024000));
+    check!(Timestamp::from(1335020400) == Timestamp::from(1335020400));
+    check!(
       Timestamp::new(1335020400, 500_000_000)
         < Timestamp::new(1335020400, 750_000_000)
     );
-    assert!(Timestamp::new(1, 999_999_999) < Timestamp::from(2));
+    check!(Timestamp::new(1, 999_999_999) < Timestamp::from(2));
+  }
+
+  #[test]
+  fn test_from_nanos() {
+    check!(
+      Timestamp::from_nanos(1335020400_000_000_000i64)
+        == Timestamp::new(1335020400, 0)
+    );
+    check!(
+      Timestamp::from_nanos(1335020400_500_000_000i64)
+        == Timestamp::new(1335020400, 500_000_000)
+    );
+    check!(
+      Timestamp::from_nanos(-1_750_000_000) == Timestamp::new(-1, 250_000_000)
+    );
+  }
+
+  #[test]
+  fn test_from_micros() {
+    check!(
+      Timestamp::from_micros(1335020400_000_000i64)
+        == Timestamp::new(1335020400, 0)
+    );
+    check!(
+      Timestamp::from_micros(1335020400_500_000i64)
+        == Timestamp::new(1335020400, 500_000_000)
+    );
+    check!(
+      Timestamp::from_micros(-1_750_000) == Timestamp::new(-1, 250_000_000)
+    );
+  }
+
+  #[test]
+  fn test_from_millis() {
+    check!(
+      Timestamp::from_millis(1335020400_000i64)
+        == Timestamp::new(1335020400, 0)
+    );
+    check!(
+      Timestamp::from_millis(1335020400_500i64)
+        == Timestamp::new(1335020400, 500_000_000)
+    );
+    check!(Timestamp::from_millis(-1_750) == Timestamp::new(-1, 250_000_000));
   }
 
   #[test]
