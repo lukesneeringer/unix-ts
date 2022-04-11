@@ -37,6 +37,15 @@ use unix_ts::Timestamp;
 let t = Timestamp::from(1335020400);
 ```
 
+For milliseconds, microseconds, or nanoseconds, there are specific `from`
+methods available:
+
+```rs
+use unix_ts::Timestamp;
+
+let t = Timestamp::from_nanos(1335020400_000_000_000i64);
+```
+
 Finally, the `new` method accepts `seconds` and `nanos`. This is generally less
 convenient than the macro, though, because you have to convert fractional
 seconds to nanos by yourself.
