@@ -1,5 +1,6 @@
 use std::ops::Add;
 use std::ops::AddAssign;
+use std::ops::Rem;
 use std::ops::Sub;
 use std::ops::SubAssign;
 
@@ -54,6 +55,15 @@ impl<T: Into<i64> + Int> SubAssign<T> for Timestamp {
   /// Subtract the provided duration to the timestamp, in-place.
   fn sub_assign(&mut self, other: T) {
     self.seconds -= other.into();
+  }
+}
+
+impl<T: Into<i64> + Int> Rem<T> for Timestamp {
+  type Output = Self;
+
+  /// Subtract the provided duration to the timestamp.
+  fn rem(self, other: T) -> Timestamp {
+    Timestamp::new(self.seconds % other.into(), self.nanos)
   }
 }
 
