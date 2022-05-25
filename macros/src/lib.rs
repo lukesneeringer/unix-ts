@@ -37,7 +37,7 @@ pub fn ts(input: TokenStream) -> TokenStream {
   // return a timestamp from it.
   if !src.contains('.') {
     return format!(
-      "::unix_ts::Timestamp::from({}{})",
+      "::unix_ts::Timestamp::new({}{}, 0)",
       if neg { '-' } else { ' ' },
       src
     )
