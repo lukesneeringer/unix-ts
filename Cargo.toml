@@ -1,6 +1,6 @@
 [package]
 name = "unix-ts"
-version = "0.4.1"
+version = "0.5.0"
 edition = "2021"
 authors = [
   "Luke Sneeringer <luke@sneeringer.com>"
@@ -24,7 +24,7 @@ chrono = { version = "0.4", optional = true }
 unix-ts-macros = { path = "macros", version = "0.4" }
 
 [dev-dependencies]
-chrono-tz = "0.6"
+chrono-tz = "0.8"
 assert2 = "0.3"
 
 [build-dependencies]

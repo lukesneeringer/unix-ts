@@ -23,37 +23,36 @@ impl Timestamp {
   /// Note: For negative timestamps, the `nanos` argument is _always_ a
   /// positive offset. Therefore, the correct way to represent a timestamp
   /// of `-0.25 seconds` is to call `new(-1, 750_000_000)`.
-  pub fn new(mut seconds: i64, mut nanos: u32) -> Timestamp {
+  pub const fn new(mut seconds: i64, mut nanos: u32) -> Timestamp {
     while nanos >= 1_000_000_000 {
       seconds += 1;
       nanos -= 1_000_000_000;
     }
-    Timestamp { seconds: seconds, nanos: nanos }
+    Timestamp { seconds, nanos }
   }
 
   /// Create a timestamp from the given number of nanoseconds.
-  pub fn from_nanos(nanos: impl Into<i128>) -> Timestamp {
-    let nanos = nanos.into();
-    let seconds: i64 = (nanos / 1_000_000_000)
-      .try_into()
-      .expect("Timestamp value out of range.");
+  pub const fn from_nanos(nanos: i128) -> Timestamp {
+    let seconds: i64 = (nanos / 1_000_000_000) as i64;
+    // .try_into()
+    // .expect("Timestamp value out of range.");
     let nanos = if seconds >= 0 {
       (nanos % 1_000_000_000) as u32
     }
     else {
       (1_000_000_000 - (nanos % 1_000_000_000).abs()) as u32
     };
-    Timestamp { seconds: seconds, nanos: nanos }
+    Timestamp { seconds, nanos }
   }
 
   /// Create a timestamp from the given number of microseconds.
-  pub fn from_micros(micros: impl Into<i128>) -> Timestamp {
-    Timestamp::from_nanos(micros.into() * 1_000)
+  pub const fn from_micros(micros: i64) -> Timestamp {
+    Timestamp::from_nanos(micros as i128 * 1_000)
   }
 
   /// Create a timestamp from the given number of milliseconds.
-  pub fn from_millis(millis: impl Into<i128>) -> Timestamp {
-    Timestamp::from_nanos(millis.into() * 1_000_000)
+  pub const fn from_millis(millis: i64) -> Timestamp {
+    Timestamp::from_nanos(millis as i128 * 1_000_000)
   }
 
   /// Return the seconds since the Unix epoch.
@@ -67,7 +66,7 @@ impl Timestamp {
   /// let t = Timestamp::from(1335020400);
   /// assert_eq!(t.seconds(), 1335020400);
   /// ```
-  pub fn seconds(&self) -> i64 {
+  pub const fn seconds(&self) -> i64 {
     self.seconds
   }
 
@@ -89,9 +88,9 @@ impl Timestamp {
   /// assert_eq!(t.at_precision(3), 1335020400_000);
   /// assert_eq!(t.at_precision(6), 1335020400_000_000);
   /// ```
-  pub fn at_precision(&self, e: u8) -> i128 {
-    i128::from(self.seconds) * 10i128.pow(e.into())
-      + i128::from(self.nanos) / 10i128.pow(9 - u32::from(e))
+  pub const fn at_precision(&self, e: u8) -> i128 {
+    (self.seconds as i128) * 10i128.pow(e as u32)
+      + (self.nanos as i128) / 10i128.pow(9 - (e as u32))
   }
 
   /// Return the subsecond component at the specified precision
@@ -142,6 +141,7 @@ impl Sub for Timestamp {
 }
 
 #[cfg(test)]
+#[allow(clippy::inconsistent_digit_grouping)]
 mod tests {
   use super::*;
   use assert2::check;
@@ -160,11 +160,11 @@ mod tests {
   #[test]
   fn test_from_nanos() {
     check!(
-      Timestamp::from_nanos(1335020400_000_000_000i64)
+      Timestamp::from_nanos(1335020400_000_000_000i128)
         == Timestamp::new(1335020400, 0)
     );
     check!(
-      Timestamp::from_nanos(1335020400_500_000_000i64)
+      Timestamp::from_nanos(1335020400_500_000_000i128)
         == Timestamp::new(1335020400, 500_000_000)
     );
     check!(

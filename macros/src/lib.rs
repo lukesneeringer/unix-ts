@@ -25,7 +25,7 @@ use proc_macro::TokenStream;
 #[proc_macro]
 pub fn ts(input: TokenStream) -> TokenStream {
   let mut src = input.to_string().trim_start().trim_end().to_owned();
-  if src.len() == 0 {
+  if src.is_empty() {
     panic!("No input to ts! macro.");
   }
 
@@ -73,12 +73,12 @@ pub fn ts(input: TokenStream) -> TokenStream {
   }
 
   // Return the new timestamp.
-  return format!(
+  format!(
     "::unix_ts::Timestamp::new({}{}, {})",
     if neg { '-' } else { ' ' },
     seconds,
-    nanos[0..9].to_string(),
+    &nanos[0..9],
   )
   .parse()
-  .unwrap();
+  .expect("Not a number.")
 }
