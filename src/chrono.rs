@@ -1,9 +1,8 @@
-extern crate chrono;
-
 use chrono::DateTime;
 use chrono::NaiveDateTime;
 use chrono::TimeZone;
 use chrono::Utc;
+use std::fmt::Display;
 
 use crate::timestamp::Timestamp;
 
