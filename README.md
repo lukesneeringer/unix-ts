@@ -13,7 +13,7 @@ Add the crate to your `Cargo.toml` file like usual:
 
 ```toml
 [dependencies]
-unix-ts = "0.2"
+unix-ts = "0.5"
 ```
 
 You can create a timestamp with the `ts!` macro, which takes the Unix timestamp
