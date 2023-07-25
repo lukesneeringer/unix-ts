@@ -20,7 +20,7 @@ exclude = [
 proc-macro = true
 
 [dev-dependencies]
-unix-ts = { path = "..", version = "0.4.0" }
+unix-ts = { path = "..", version = "0.6.0" }
 
 [build-dependencies]
 readme-rustdocifier = "0.1"

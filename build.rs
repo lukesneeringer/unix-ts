@@ -3,7 +3,7 @@ use std::error::Error;
 use std::fs;
 use std::path::PathBuf;
 
-const CRATE_NAME: &str = "plutus";
+const CRATE_NAME: &str = "unix-ts";
 
 fn main() -> Result<(), Box<dyn Error>> {
   println!("cargo:rerun-if-changed=README.md");
