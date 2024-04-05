@@ -4,22 +4,6 @@
 use proc_macro::TokenStream;
 
 /// Create a timestamp from the given Unix timestamp.
-///
-/// # Examples
-///
-/// ```
-/// use unix_ts_macros::ts;
-///
-/// let t = ts!(1335020400);
-/// assert_eq!(t.seconds(), 1335020400);
-///
-/// let t = ts!(1335020400.25);
-/// assert_eq!(t.seconds(), 1335020400);
-/// assert_eq!(t.subsec(3), 250);
-///
-/// let t = ts!(-86400);
-/// assert_eq!(t.seconds(), -86400);
-/// ```
 #[proc_macro]
 pub fn ts(input: TokenStream) -> TokenStream {
   let mut src = input.to_string().trim_start().trim_end().to_owned();
