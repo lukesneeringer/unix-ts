@@ -18,6 +18,3 @@ exclude = [
 
 [lib]
 proc-macro = true
-
-[dev-dependencies]
-unix-ts = { path = "..", version = "1" }
