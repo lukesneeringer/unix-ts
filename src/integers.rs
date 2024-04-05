@@ -107,4 +107,10 @@ mod tests {
     assert_eq!(ts.seconds, 1335020400 - 86400);
     assert_eq!(ts.nanos, 500_000_000);
   }
+
+  #[test]
+  fn test_rem() {
+    let ts = Timestamp::new(86500, 12);
+    assert_eq!(ts % 86400, Timestamp::new(100, 12))
+  }
 }

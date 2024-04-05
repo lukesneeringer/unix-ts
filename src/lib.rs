@@ -71,6 +71,7 @@ impl Timestamp {
   /// ## Panic
   ///
   /// Panics if the system clock is set to a time prior to the Unix epoch (January 1, 1970).
+  #[cfg(not(tarpaulin_include))]
   pub fn now() -> Self {
     let now_dur = SystemTime::now()
       .duration_since(SystemTime::UNIX_EPOCH)
@@ -145,6 +146,13 @@ mod tests {
   use assert2::check;
 
   use super::*;
+
+  #[test]
+  fn test_new_overflow() {
+    let ts = Timestamp::new(1, 1_500_000_000);
+    check!(ts.seconds() == 2);
+    check!(ts.subsec(3) == 500);
+  }
 
   #[test]
   fn test_cmp() {

@@ -22,5 +22,6 @@ mod tests {
   fn test_display() {
     let t = Timestamp::from(1335020400);
     assert_eq!(format!("{:.02}", t), "1335020400.00");
+    assert_eq!(format!("{}", t), "1335020400");
   }
 }
