@@ -8,7 +8,7 @@ impl Display for Timestamp {
       Some(p) => {
         let float = self.seconds as f64 + self.nanos as f64 / 1_000_000_000.0;
         write!(f, "{:.*}", p, float)
-      }
+      },
       None => write!(f, "{}", self.seconds),
     }
   }

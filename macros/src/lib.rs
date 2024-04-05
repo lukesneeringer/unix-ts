@@ -1,7 +1,5 @@
-#![crate_name = "unix_ts_macros"]
-#![doc = include_str!(concat!(env!("OUT_DIR"), "/README-rustdocified.md"))]
-
-extern crate proc_macro;
+//! The companion macro crate for `unix-ts`, to create Unix timestamps from integer and float
+//! literals.
 
 use proc_macro::TokenStream;
 
@@ -36,13 +34,9 @@ pub fn ts(input: TokenStream) -> TokenStream {
   // If there is no decimal point, this is an integer;
   // return a timestamp from it.
   if !src.contains('.') {
-    return format!(
-      "::unix_ts::Timestamp::new({}{}, 0)",
-      if neg { '-' } else { ' ' },
-      src
-    )
-    .parse()
-    .unwrap();
+    return format!("::unix_ts::Timestamp::new({}{}, 0)", if neg { '-' } else { ' ' }, src)
+      .parse()
+      .unwrap();
   }
 
   // If we start with a decimal point, prepend a zero.

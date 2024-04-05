@@ -4,31 +4,14 @@ use std::ops::AddAssign;
 use std::ops::Sub;
 use std::ops::SubAssign;
 
-use crate::timestamp::Timestamp;
-
-impl From<std::time::Duration> for Timestamp {
-  /// Create a new timestamp from the given `std::time::Duration`.
-  fn from(dur: std::time::Duration) -> Self {
-    Timestamp {
-      seconds: dur.as_secs().try_into().unwrap(),
-      nanos: dur.subsec_nanos(),
-    }
-  }
-}
-
-impl From<Timestamp> for std::time::Duration {
-  /// Create a new Duration from the given timestamp.
-  fn from(ts: Timestamp) -> Self {
-    std::time::Duration::new(ts.seconds.try_into().unwrap(), ts.nanos)
-  }
-}
+use crate::Timestamp;
 
 impl Add<std::time::Duration> for Timestamp {
   type Output = Self;
 
   /// Add the provided duration to the timestamp.
   fn add(self, other: std::time::Duration) -> Timestamp {
-    let s: i64 = other.as_secs().try_into().unwrap();
+    let s: i64 = other.as_secs() as i64;
     Timestamp::new(self.seconds + s, self.nanos + other.subsec_nanos())
   }
 }
@@ -36,7 +19,7 @@ impl Add<std::time::Duration> for Timestamp {
 impl AddAssign<std::time::Duration> for Timestamp {
   /// Add the provided duration to the timestamp, in-place.
   fn add_assign(&mut self, other: std::time::Duration) {
-    let delta: i64 = other.as_secs().try_into().unwrap();
+    let delta: i64 = other.as_secs() as i64;
     self.seconds += delta;
     self.nanos += other.subsec_nanos();
     while self.nanos >= 1_000_000_000 {
@@ -80,21 +63,6 @@ mod tests {
   use super::*;
 
   #[test]
-  fn test_from_duration() {
-    let dur = std::time::Duration::new(1335020400, 0);
-    let ts = Timestamp::from(dur);
-    assert_eq!(ts.seconds, 1335020400);
-  }
-
-  #[test]
-  fn test_from_timestamp() {
-    let ts = Timestamp::new(1335020400, 500_000_000);
-    let dur = std::time::Duration::from(ts);
-    assert_eq!(dur.as_secs(), 1335020400);
-    assert_eq!(dur.subsec_millis(), 500);
-  }
-
-  #[test]
   fn test_add() {
     let ts = Timestamp::new(1335020400, 0);
     let dur = std::time::Duration::new(86400, 0);
@@ -125,8 +93,7 @@ mod tests {
 
   #[test]
   fn test_sub_nano_overflow() {
-    let ts = Timestamp::new(1335020400, 500_000_000)
-      - std::time::Duration::new(0, 750_000_000);
+    let ts = Timestamp::new(1335020400, 500_000_000) - std::time::Duration::new(0, 750_000_000);
     assert_eq!(ts.seconds, 1335020399);
     assert_eq!(ts.nanos, 750_000_000);
   }
