@@ -1,6 +1,6 @@
 [package]
 name = "unix-ts-macros"
-version = "0.4.0"
+version = "1.0.0"
 edition = "2021"
 keywords = ["date", "time", "unix-timestamp", "timestamp"]
 categories = ["date-and-time"]
@@ -20,7 +20,4 @@ exclude = [
 proc-macro = true
 
 [dev-dependencies]
-unix-ts = { path = "..", version = "0.6.0" }
-
-[build-dependencies]
-readme-rustdocifier = "0.1"
+unix-ts = { path = "..", version = "1" }

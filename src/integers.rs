@@ -4,9 +4,9 @@ use std::ops::Rem;
 use std::ops::Sub;
 use std::ops::SubAssign;
 
-use crate::timestamp::Timestamp;
+use crate::Timestamp;
 
-pub trait Int {}
+trait Int {}
 impl Int for f64 {}
 impl Int for f32 {}
 impl Int for i64 {}
